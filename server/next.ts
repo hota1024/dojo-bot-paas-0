@@ -1,5 +1,6 @@
 import next from 'next'
 import express, { Request, Response } from 'express'
+import { cors } from './middleware/cors'
 
 export const startNextApp = () => {
   const port = parseInt(process.env.PORT ?? '3000')
@@ -14,6 +15,8 @@ export const startNextApp = () => {
     server.get('*', (req: Request, res: Response) => {
       return handle(req, res)
     })
+
+    server.use(cors)
 
     server.listen(port, (error?: Error) => {
       if (error) throw error
